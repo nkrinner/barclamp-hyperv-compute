@@ -12,16 +12,13 @@ if node[:target_platform] !~ /^hyperv/
       restart feature_attrs["restart"] || false
     end
 
-    ruby_block 'set_windows_features_install_flag' do
-      block do
-        unless node[:windows_features_installed].is_a? Array
-          node.set[:windows_features_installed] = []
-        end
+    node.default[:windows_features_installed].push feature_name
+    node.save
+  end
 
-        node.set[:windows_features_installed].push feature_name
-        node.save
-      end
-    end
+  windows_reboot 60 do
+    reason 'Installing required Windows features requires a reboot'
+    action :request
   end
 end
 

@@ -28,6 +28,8 @@ default[:features_list][:iscsi_target] = {
 
 default[:features_list][:windows] = default[:features_list][:management].merge(default[:features_list][:hyperv].merge(default[:features_list][:iscsi_target]))
 
+default[:windows_features_installed] = []
+
 default[:sevenzip][:location] = "#{Chef::Config[:file_cache_path]}/"
 default[:sevenzip][:file] = "7z922-x64.msi"
 default[:sevenzip][:command] = "\"C:\\Program Files\\7-Zip\\7z.exe\""
